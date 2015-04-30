@@ -1,14 +1,23 @@
-<table style="background:rgba(255,255,255,0.5);box-shadow: 1px 0px 8px;">
-<% debuglog.forEach(function eachLog(log) { %>
-	<tr data-log-start="<%= log.start.toFixed(2) %>" data-log-end="<%= log.end.toFixed(2) %>">
-		<td class="debugbar-log-title"><%= " »".multiply(log.level) %> <%= log.title || log.type %></td>
-		<td class="debugbar-log-duration">Duration: <%= log.duration.toFixed(2) %></td>
-		<td class="debugbar-log-graph">
-			<div class="debugbar-graph">
-				<div class="debugbar-graph-value" style="margin-left: <%= log.pixelBegin %>%;margin-right: <%= log.pixelEnd %>%"></div>
-			</div>
-		</td>
-	</tr>
-	<% log.children.forEach(eachLog) %>
-<% }) %>
-</table>
+<div class="timer-content">
+	<table class="debugbar-graph-table">
+	<% debuglog.forEach(function eachLog(log) { %>
+		<tr
+			data-log-start="<%= log.start.toFixed(2) %>"
+			data-log-end="<% if (typeof log.end == 'number') print(log.end.toFixed(2)) %>"
+		>
+			<td class="debugbar-log-title"><%
+				if (log.level) {
+					print("&nbsp;&nbsp;".multiply(log.level) + "»");
+				}
+			%> <%= log.title || log.type %></td>
+			<td class="debugbar-log-duration">Duration: <% if (typeof log.duration == 'number') print(log.duration.toFixed(2)) %></td>
+			<td class="debugbar-log-graph">
+				<div class="debugbar-graph">
+					<div class="debugbar-graph-value" style="margin-left: <%= log.pixelBegin %>%;margin-right: <%= log.pixelEnd %>%"></div>
+				</div>
+			</td>
+		</tr>
+		<% log.children.forEach(eachLog) %>
+	<% }) %>
+	</table>
+</div>

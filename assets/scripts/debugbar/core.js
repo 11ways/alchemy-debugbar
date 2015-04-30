@@ -330,8 +330,13 @@ Debugbar.register('timer', function timer(debuglog, variables, callback) {
 
 	// Calculate the pixel percentages
 	debuglog.forEach(function eachLog(log) {
-		log.pixelBegin = ~~((log.start / end) * 100);
-		log.pixelEnd = 100 - ~~((log.end / end) * 100);
+		log.pixelBegin = ((log.start / end) * 100).toFixed(2);
+		log.pixelEnd = 100 - ((log.end / end) * 100).toFixed(2);
+
+		// Make sure every log has a visual representation, even if they're really short
+		if (log.pixelBegin + log.pixelEnd > 99) {
+			log.pixelEnd -= 0.1;
+		}
 
 		log.children.forEach(eachLog);
 	});
