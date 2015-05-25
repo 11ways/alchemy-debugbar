@@ -338,7 +338,9 @@ Debugbar.register('timer', function timer(debuglog, variables, callback) {
 			log.pixelEnd -= 0.1;
 		}
 
-		log.children.forEach(eachLog);
+		if (log.children) {
+			log.children.forEach(eachLog);
+		}
 	});
 
 	callback(null);
