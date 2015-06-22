@@ -22,7 +22,9 @@ alchemy.hawkejs.on({type: 'viewrender', status: 'begin'}, function onBegin(viewR
 		body: conduit.body,
 		cookies: conduit.cookies,
 		files: conduit.files,
-		url: conduit.url
+		url: conduit.url,
+		toobusy: alchemy.toobusy(),
+		lag: alchemy.toobusy.lag()
 	};
 
 	viewRender.internal('debugbarData', debugbarData);

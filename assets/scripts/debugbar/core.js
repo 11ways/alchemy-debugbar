@@ -70,6 +70,8 @@ Debugbar.setStatic(function walk(obj, level, seen) {
 		seen.push(obj);
 	}
 
+	return '';
+
 	Object.each(obj, function eachEntry(value, key) {
 
 		var sub = '',
@@ -182,6 +184,7 @@ Debugbar.setMethod(function update(debuglog, variables, data) {
 		tasks.push(function generate(next) {
 			tab.prefnc(debuglog, variables, function doneData() {
 				var vars = Object.assign({}, variables, {debuglog: debuglog});
+
 				hawkejs.render('debugbar/' + name + '_panel', vars, function done(err, lines) {
 
 					var html;

@@ -1,5 +1,7 @@
 <div class="timer-content">
 	<table class="debugbar-graph-table">
+	<span>Eventloop lag: <b><%= internal('debugbarData').lag %>ms</b>, Toobusy: <b><%= internal('debugbarData').toobusy %></b></span>
+	<br>
 	<% debuglog.forEach(function eachLog(log) { %>
 		<tr
 			data-log-start="<%= log.start.toFixed(2) %>"
