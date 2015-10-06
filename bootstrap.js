@@ -9,7 +9,7 @@ alchemy.hawkejs.on({type: 'viewrender', status: 'begin'}, function onBegin(viewR
 	var conduit = viewRender.conduit;
 
 	// Add the debugbar javascript files
-	viewRender.script(['debugbar/debugbar_panel', 'debugbar/core']);
+	viewRender.script([{name: 'jquery', path: '//code.jquery.com/jquery-1.11.3.min.js'}, 'debugbar/debugbar_panel', 'debugbar/core']);
 
 	// Add the debugbar stylesheets
 	viewRender.style('debugbar/core');
