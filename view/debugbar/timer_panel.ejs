@@ -11,7 +11,16 @@
 				if (log.level) {
 					print("&nbsp;&nbsp;".multiply(log.level) + "»");
 				}
-			%> <%= log.title || log.type %></td>
+
+				title = log.title || log.type;
+				if (typeof title == 'object') {
+					if (title.data && title.data.title) {
+						title = title.data.title;
+					} else if (title.label) {
+						title = title.label;
+					}
+				}
+			%> <%= title %></td>
 			<td class="debugbar-log-duration">Duration: <% if (typeof log.duration == 'number') print(log.duration.toFixed(2)) %></td>
 			<td class="debugbar-log-graph">
 				<div class="debugbar-graph">
