@@ -70,8 +70,6 @@ Debugbar.setStatic(function walk(obj, level, seen) {
 		seen.push(obj);
 	}
 
-	return '';
-
 	Object.each(obj, function eachEntry(value, key) {
 
 		var sub = '',
@@ -86,6 +84,8 @@ Debugbar.setStatic(function walk(obj, level, seen) {
 		} else {
 			name = value.constructor.name;
 		}
+
+		name = String(name);
 
 		html += '<div class="debugkit-var-entry debugkit-var-type-' + name.toLowerCase();
 
