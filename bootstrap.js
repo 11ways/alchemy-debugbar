@@ -8,6 +8,11 @@ alchemy.hawkejs.on({type: 'viewrender', status: 'begin'}, function onBegin(viewR
 
 	var conduit = viewRender.conduit;
 
+	// If there is no conduit, it's probably some kind of sub-render
+	if (!conduit) {
+		return;
+	}
+
 	// Add the debugbar javascript files
 	viewRender.script([{name: 'jquery', path: '//code.jquery.com/jquery-1.11.3.min.js'}, 'debugbar/debugbar_panel', 'debugbar/core']);
 

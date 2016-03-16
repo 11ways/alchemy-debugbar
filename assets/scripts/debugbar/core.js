@@ -56,6 +56,11 @@ Debugbar.setStatic(function walk(obj, level, seen) {
 		level = 0;
 	}
 
+	// Don't go over 100 levels deep
+	if (level > 100) {
+		return '';
+	}
+
 	if (!seen) {
 		seen = [];
 	}
@@ -100,14 +105,26 @@ Debugbar.setStatic(function walk(obj, level, seen) {
 		if (value && typeof value == 'object') {
 
 			if (seen.indexOf(value) == -1) {
-				temp = '' + value;
 
-				if (temp.indexOf('[object ') > -1) {
-					temp = '...';
+				if (key == 'prototype') {
+					html += '<span class="debugkit-var-value">prototype</span>';
+				} else {
+					try {
+						temp = '' + value;
+
+						if (temp.indexOf('[object ') > -1) {
+							temp = '...';
+						}
+
+						html += '<span class="debugkit-var-value">' + temp + '</span>';
+
+						if (!(value instanceof HTMLElement)) {
+							sub += walk(value, level+1, seen);
+						}
+					} catch (err) {
+						html += '<span class="debugkit-var-value">[ERR: ' + err + ']</span>';
+					}
 				}
-
-				html += '<span class="debugkit-var-value">' + temp + '</span>';
-				sub += walk(value, level+1, seen);
 			} else {
 				html += '<span class="debugkit-var-value">[circular]</span>';
 			}
