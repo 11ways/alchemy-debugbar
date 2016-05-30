@@ -3,9 +3,9 @@
  *
  * @constructor
  *
- * @author   Jelle De Loecker   <jelle@kipdola.be>
- * @since    1.0.0
- * @version  1.0.0
+ * @author   Jelle De Loecker   <jelle@develry.be>
+ * @since    0.1.0
+ * @version  0.2.0
  */
 var Debugbar = Function.inherits('Informer', function Debugbar() {
 
@@ -37,9 +37,9 @@ Debugbar.prepareStaticProperty(function tabs() {
 /**
  * Walk over an object
  *
- * @author   Jelle De Loecker   <jelle@kipdola.be>
- * @since    1.0.0
- * @version  1.0.0
+ * @author   Jelle De Loecker   <jelle@develry.be>
+ * @since    0.1.0
+ * @version  0.2.0
  * 
  * @param    {Object}   obj
  * @param    {Number}   level
@@ -149,9 +149,9 @@ Debugbar.setStatic(function walk(obj, level, seen) {
 /**
  * Register a tab
  *
- * @author   Jelle De Loecker   <jelle@kipdola.be>
- * @since    1.0.0
- * @version  1.0.0
+ * @author   Jelle De Loecker   <jelle@develry.be>
+ * @since    0.1.0
+ * @version  0.2.0
  *
  * @param    {String}   name    Name of the tab (and the view file)
  * @param    {Function} prefnc  Function to handle the data before rendering
@@ -181,9 +181,9 @@ Debugbar.setStatic(function register(name, prefnc, postfnc, weight) {
 /**
  * Update the debugbar with data from the server
  *
- * @author   Jelle De Loecker   <jelle@kipdola.be>
- * @since    1.0.0
- * @version  1.0.0
+ * @author   Jelle De Loecker   <jelle@develry.be>
+ * @since    0.1.0
+ * @version  0.2.0
  */
 Debugbar.setMethod(function update(debuglog, variables, data) {
 
@@ -239,9 +239,9 @@ Debugbar.setMethod(function update(debuglog, variables, data) {
 /**
  * Make buttons clickable
  *
- * @author   Jelle De Loecker   <jelle@kipdola.be>
- * @since    1.0.0
- * @version  1.0.0
+ * @author   Jelle De Loecker   <jelle@develry.be>
+ * @since    0.1.0
+ * @version  0.2.0
  */
 Debugbar.setMethod(function makeButtonsClickable() {
 
@@ -270,9 +270,9 @@ Debugbar.setMethod(function makeButtonsClickable() {
 /**
  * Make the pannel draggable
  *
- * @author   Jelle De Loecker   <jelle@kipdola.be>
- * @since    1.0.0
- * @version  1.0.0
+ * @author   Jelle De Loecker   <jelle@develry.be>
+ * @since    0.1.0
+ * @version  0.2.0
  */
 Debugbar.setMethod(function makePanelDraggable() {
 
@@ -315,9 +315,9 @@ Debugbar.setMethod(function makePanelDraggable() {
 /**
  * Listen for renders to end
  *
- * @author   Jelle De Loecker   <jelle@kipdola.be>
- * @since    1.0.0
- * @version  1.0.0
+ * @author   Jelle De Loecker   <jelle@develry.be>
+ * @since    0.1.0
+ * @version  0.2.0
  */
 hawkejs.scene.on('rendered', function rendered(variables, data) {
 
@@ -333,9 +333,9 @@ hawkejs.scene.on('rendered', function rendered(variables, data) {
 /**
  * Show graphical representation of how long certain pieces of code took
  *
- * @author   Jelle De Loecker   <jelle@kipdola.be>
- * @since    1.0.0
- * @version  1.0.0
+ * @author   Jelle De Loecker   <jelle@develry.be>
+ * @since    0.1.0
+ * @version  0.2.0
  */
 Debugbar.register('timer', function timer(debuglog, variables, callback) {
 
@@ -369,9 +369,9 @@ Debugbar.register('timer', function timer(debuglog, variables, callback) {
 /**
  * Show the session content
  *
- * @author   Jelle De Loecker   <jelle@kipdola.be>
- * @since    1.0.0
- * @version  1.0.0
+ * @author   Jelle De Loecker   <jelle@develry.be>
+ * @since    0.1.0
+ * @version  0.2.0
  */
 Debugbar.register('session', null, function($wrapper, debuglog, variables, data) {
 
@@ -393,9 +393,9 @@ Debugbar.register('session', null, function($wrapper, debuglog, variables, data)
 /**
  * Show the request content
  *
- * @author   Jelle De Loecker   <jelle@kipdola.be>
- * @since    1.0.0
- * @version  1.0.0
+ * @author   Jelle De Loecker   <jelle@develry.be>
+ * @since    0.1.0
+ * @version  0.2.0
  */
 Debugbar.register('request', null, function($wrapper, debuglog, variables, data) {
 
@@ -430,9 +430,9 @@ Debugbar.register('request', null, function($wrapper, debuglog, variables, data)
 /**
  * Show all the available variables to the view during render
  *
- * @author   Jelle De Loecker   <jelle@kipdola.be>
- * @since    1.0.0
- * @version  1.0.0
+ * @author   Jelle De Loecker   <jelle@develry.be>
+ * @since    0.1.0
+ * @version  0.2.0
  */
 Debugbar.register('variables', null, function($wrapper, debuglog, variables, data) {
 
