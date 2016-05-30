@@ -1,13 +1,21 @@
 {
 	"name": "alchemy-debugbar",
-	"description": "Client-side debugbar for Alchemy",
-	"version": "0.1.0-alpha",
+	"description": "Client-side debugbar for the Alchemy MVC",
+	"version": "0.2.0",
+	"author": "Jelle De Loecker <jelle@develry.be>",
+	"keywords": [
+		"alchemy",
+		"alchemymvc",
+		"plugin",
+		"debug",
+		"debugbar"
+	],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/skerit/alchemy-debugbar.git"
 	},
 	"license": "MIT",
 	"engines": {
-		"node": ">=0.8"
+		"node": "~4.5.0"
 	}
 }

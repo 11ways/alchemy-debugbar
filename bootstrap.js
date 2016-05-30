@@ -6,7 +6,8 @@ alchemy.hawkejs.constructor.ViewRender.setStaticProperty('classWideEvents', true
 // Add the debugbar script
 alchemy.hawkejs.on({type: 'viewrender', status: 'begin'}, function onBegin(viewRender) {
 
-	var conduit = viewRender.conduit;
+	var debugbarData,
+	    conduit = viewRender.conduit;
 
 	// If there is no conduit, it's probably some kind of sub-render
 	if (!conduit) {
@@ -14,22 +15,33 @@ alchemy.hawkejs.on({type: 'viewrender', status: 'begin'}, function onBegin(viewR
 	}
 
 	// Add the debugbar javascript files
-	viewRender.script([{name: 'jquery', path: '//code.jquery.com/jquery-1.11.3.min.js'}, 'debugbar/debugbar_panel', 'debugbar/core']);
+	viewRender.script([
+
+		// Require a package named "jquery",
+		// use the supplied path if it isn't loaded yet
+		{name: 'jquery', path: 'debugbar/jquery-2.2.4.min.js'},
+
+		// Load the main debugbar scripts
+		'debugbar/debugbar_panel',
+		'debugbar/core'
+	]);
 
 	// Add the debugbar stylesheets
 	viewRender.style('debugbar/core');
 
-	var debugbarData = {
-		session: conduit.session(),
-		headers: conduit.headers,
-		route: conduit.route,
-		languages: conduit.languages,
-		body: conduit.body,
-		cookies: conduit.cookies,
-		files: conduit.files,
-		url: conduit.url,
-		toobusy: alchemy.toobusy(),
-		lag: alchemy.toobusy.lag()
+	// Prepare an object containing all the data
+	// debugbar will use
+	debugbarData = {
+		body      : conduit.body,
+		cookies   : conduit.cookies,
+		files     : conduit.files,
+		headers   : conduit.headers,
+		lag       : alchemy.toobusy.lag(),
+		languages : conduit.languages,
+		route     : conduit.route,
+		session   : conduit.session(),
+		toobusy   : alchemy.toobusy(),
+		url       : conduit.url
 	};
 
 	viewRender.internal('debugbarData', debugbarData);
