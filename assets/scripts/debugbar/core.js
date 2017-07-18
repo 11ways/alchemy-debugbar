@@ -62,7 +62,7 @@ Debugbar.setStatic(function walk(obj, level, seen) {
 	}
 
 	if (!seen) {
-		seen = [];
+		seen = [window];
 	}
 
 	if (level) {
@@ -77,7 +77,8 @@ Debugbar.setStatic(function walk(obj, level, seen) {
 
 	Object.each(obj, function eachEntry(value, key) {
 
-		var sub = '',
+		var do_walk,
+		    sub = '',
 		    name,
 		    type = typeof value;
 
@@ -110,16 +111,35 @@ Debugbar.setStatic(function walk(obj, level, seen) {
 					html += '<span class="debugkit-var-value">prototype</span>';
 				} else {
 					try {
-						temp = '' + value;
 
-						if (temp.indexOf('[object ') > -1) {
-							temp = '...';
+						if (value && typeof value.toDebugbar == 'function') {
+							value = value.toDebugbar();
 						}
 
-						html += '<span class="debugkit-var-value">' + temp + '</span>';
+						if (Array.isArray(value)) {
+							temp = 'Array';
+							do_walk = true;
+						} else if (__Protoblast.Bound.Object.isPlainObject(value)) {
+							temp = '' + value;
 
-						if (!(value instanceof HTMLElement)) {
-							sub += walk(value, level+1, seen);
+							if (temp.indexOf('[object ') > -1) {
+								temp = 'Object';
+							}
+
+							do_walk = true;
+						} else {
+							do_walk = false;
+						}
+
+						if (do_walk) {
+							html += '<span class="debugkit-var-value">' + temp + '</span>';
+
+							if (!(value instanceof HTMLElement)) {
+								sub += walk(value, level+1, seen);
+							}
+						} else {
+							temp = '...';
+							html += '<span class="debugkit-var-value">' + temp + '</span>';
 						}
 					} catch (err) {
 						html += '<span class="debugkit-var-value">[ERR: ' + err + ']</span>';
@@ -373,7 +393,7 @@ Debugbar.register('timer', function timer(debuglog, variables, callback) {
  * @since    0.1.0
  * @version  0.2.0
  */
-Debugbar.register('session', null, function($wrapper, debuglog, variables, data) {
+Debugbar.register('session', null, function sessionContent($wrapper, debuglog, variables, data) {
 
 	var $content = $wrapper.find('.session-content');
 
@@ -397,7 +417,7 @@ Debugbar.register('session', null, function($wrapper, debuglog, variables, data)
  * @since    0.1.0
  * @version  0.2.0
  */
-Debugbar.register('request', null, function($wrapper, debuglog, variables, data) {
+Debugbar.register('request', null, function requestContent($wrapper, debuglog, variables, data) {
 
 	var $content = $wrapper.find('.request-content'),
 	    data = variables.__debugbarData;
@@ -434,7 +454,7 @@ Debugbar.register('request', null, function($wrapper, debuglog, variables, data)
  * @since    0.1.0
  * @version  0.2.0
  */
-Debugbar.register('variables', null, function($wrapper, debuglog, variables, data) {
+Debugbar.register('variables', null, function variablesContent($wrapper, debuglog, variables, data) {
 
 	var $content = $wrapper.find('.variables-content'),
 	    internal = {},
@@ -464,7 +484,7 @@ Debugbar.register('variables', null, function($wrapper, debuglog, variables, dat
 	$content.html(html);
 
 	// Toggle the children entries on click
-	$content.on('click', '.debugkit-var-has-children .debugkit-var-header', function(e) {
+	$content.on('click', '.debugkit-var-has-children .debugkit-var-header', function onClick(e) {
 		e.stopPropagation();
 		$(this).parent().find('> .debugkit-var-nested').toggle();
 	});
